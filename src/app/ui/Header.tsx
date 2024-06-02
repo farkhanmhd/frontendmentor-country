@@ -33,7 +33,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed left-0 top-0 z-50 flex w-full justify-between bg-white px-5 py-10 font-bold shadow dark:bg-dark-blue md:px-10">
+    <header className="fixed left-0 top-0 z-50 flex w-full justify-between bg-white px-5 py-6 font-bold shadow dark:bg-dark-blue md:px-10">
       <Link href="/" className="text-xl">
         Where in the world?
       </Link>

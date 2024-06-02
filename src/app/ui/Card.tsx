@@ -17,8 +17,8 @@ const Card = ({
   capital: string;
 }) => {
   return (
-    <Link href={`/${cca3}`}>
-      <figure className="flex aspect-[15/16] flex-col justify-between overflow-hidden rounded-lg bg-white shadow-lg dark:bg-dark-blue dark:text-white">
+    <Link href={`/${cca3}`} className="block">
+      <figure className="flex aspect-square w-full flex-col justify-between overflow-hidden rounded-lg bg-white shadow-lg dark:bg-dark-blue dark:text-white">
         <div className="h-1/2">
           <Image
             src={flag}

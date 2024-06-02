@@ -21,10 +21,10 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
   const allPages = generatePagination(currentPage, totalPages);
 
   return (
-    <>
+    <div className="flex w-full justify-center">
       {/* NOTE: comment in this code when you get to this point in the course */}
 
-      <div className="inline-flex justify-between">
+      <div className="mx-auto inline-flex max-w-[600px] items-center justify-between">
         <PaginationArrow
           direction="left"
           href={createPageURL(currentPage - 1)}
@@ -58,7 +58,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
           isDisabled={currentPage >= totalPages}
         />
       </div>
-    </>
+    </div>
   );
 }
 

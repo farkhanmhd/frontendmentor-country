@@ -1,3 +1,5 @@
+const ITEM_PER_PAGE = 16;
+
 export const getAllCountries = async () => {
   try {
     const response = await fetch(
@@ -28,7 +30,8 @@ export const getAllCountries = async () => {
     const sortedCountries = countries.sort((a: any, b: any) => {
       if (a.name < b.name) return -1;
     });
-    return sortedCountries;
+    const totalPages = Math.ceil(sortedCountries.length / ITEM_PER_PAGE);
+    return { countries: sortedCountries, totalPages };
   } catch (error) {
     throw new Error('Failed to fetch data');
   }
@@ -62,7 +65,8 @@ export const getCountriesByRegion = async (region: string) => {
     const sortedCountries = countries.sort((a: any, b: any) => {
       if (a.name < b.name) return -1;
     });
-    return sortedCountries;
+    const totalPages = Math.ceil(sortedCountries.length / ITEM_PER_PAGE);
+    return { countries: sortedCountries, totalPages };
   } catch (error) {
     throw new Error('Failed to fetch data');
   }
