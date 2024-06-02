@@ -14,9 +14,9 @@ const Search = () => {
     const params = new URLSearchParams(searchParams);
     params.set('page', '1');
     if (term) {
-      params.set('country', term);
+      params.set('search', term);
     } else {
-      params.delete('country');
+      params.delete('search');
     }
     replace(`${pathname}?${params.toString()}`);
   }, 300);

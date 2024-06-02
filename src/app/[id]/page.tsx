@@ -8,8 +8,8 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const country: any = await getCountryDetail(params.id);
   return (
     <section className="w-full">
-      <figure>
-        <div className="aspect-video">
+      <figure className="mx-auto max-w-[500px]">
+        <div className="w-full">
           <Image
             src={country?.flag}
             alt={country?.name}

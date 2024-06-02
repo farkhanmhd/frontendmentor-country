@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Nunito_Sans } from 'next/font/google';
 import './globals.css';
@@ -24,7 +25,7 @@ export default function RootLayout({
         className={`${nunito.className} min-h-screen w-screen bg-very-light-gray px-[30px] pb-[50px] pt-[110px] text-black antialiased duration-200 dark:bg-very-dark-blue dark:text-white`}
       >
         <Header />
-        {children}
+        <Suspense>{children}</Suspense>
       </body>
     </html>
   );

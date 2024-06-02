@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { IoMoonOutline } from 'react-icons/io5';
 
 const Header = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem('theme') === 'dark',
+  );
 
   useEffect(() => {
     const theme = localStorage.getItem('theme');
@@ -34,7 +36,7 @@ const Header = () => {
 
   return (
     <header className="fixed left-0 top-0 z-50 flex w-full justify-between bg-white px-5 py-6 font-bold shadow dark:bg-dark-blue md:px-10">
-      <Link href="/" className="text-xl">
+      <Link href="/?page=1" className="text-xl">
         Where in the world?
       </Link>
       <button

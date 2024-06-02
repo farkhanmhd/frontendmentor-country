@@ -22,18 +22,19 @@ const RegionDropdown = () => {
   const handleRegionClick = (region: string) => {
     setSelectedRegion(region);
     const params = new URLSearchParams(searchParams);
+    params.set('region', region.toLowerCase());
+    params.set('page', '1');
 
-    if (region === 'All') {
-      params.set('region', region.toLowerCase());
-      router.push(`${pathname}?${params.toString()}`);
-      params.delete('region');
-    } else {
-      params.set('region', region.toLowerCase());
+    let queryString = `region=${params.get('region')}&page=${params.get('page')}`;
+
+    if (params.get('search')) {
+      queryString += `&search=${params.get('search')}`;
     }
 
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${queryString}`);
     closeDropdown();
   };
+
   const ref = useDetectClickOutside({ onTriggered: closeDropdown });
   return (
     <div className="relative flex justify-end font-semibold">
@@ -51,9 +52,9 @@ const RegionDropdown = () => {
           aria-hidden="true"
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M6.293 9.293a1 1 0 011.414 0L10 11.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           />
         </svg>
       </button>
