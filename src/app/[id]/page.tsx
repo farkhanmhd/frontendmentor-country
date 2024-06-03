@@ -2,10 +2,11 @@ import { getCountryDetail } from '../lib/data';
 import Image from 'next/image';
 import Link from 'next/link';
 import ListDetail from '../ui/ListDetail';
+import { CountryDetail } from '../lib/data';
 
-const Page = async ({ params }: { params: { id: string } }) => {
+const Page = ({ params }: { params: { id: string } }) => {
   // fix this any type
-  const country: any = await getCountryDetail(params.id);
+  const country: CountryDetail = getCountryDetail(params.id);
   return (
     <section className="w-full">
       <figure className="mx-auto max-w-[500px]">
@@ -15,7 +16,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
             alt={country?.name}
             width={1000}
             height={1000}
-            className="object-cover"
+            className="aspect-video rounded-lg object-cover shadow-lg"
           />
         </div>
         <figcaption className="mt-8 flex flex-col gap-y-8">
@@ -28,18 +29,18 @@ const Page = async ({ params }: { params: { id: string } }) => {
             <ListDetail title="Capital" data={country?.capital} />
           </ul>
           <ul>
-            <ListDetail title="Top Level Domain" data={country?.tld} />
-            <ListDetail title="Currencies" data={country?.currencies} />
             <ListDetail
-              title="Languages"
-              data={country?.languages.join(', ')}
+              title="Top Level Domain"
+              data={country?.topLevelDomain}
             />
+            <ListDetail title="Currencies" data={country?.currencies} />
+            <ListDetail title="Languages" data={country?.languages} />
           </ul>
-          {country?.borders.length > 0 && (
+          {country?.borders?.length > 0 && (
             <h3 className="text-xl font-bold">Border Countries</h3>
           )}
           <ul className="flex flex-wrap gap-x-4 gap-y-8">
-            {country?.borders.length > 0 &&
+            {country?.borders?.length > 0 &&
               country?.borders?.map((border: string, index: number) => (
                 <li key={index}>
                   <Link

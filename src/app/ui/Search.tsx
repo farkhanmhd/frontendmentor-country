@@ -21,7 +21,7 @@ const Search = () => {
     replace(`${pathname}?${params.toString()}`);
   }, 300);
   return (
-    <div className="relative h-[56px] w-full rounded-lg shadow-lg">
+    <div className="relative mx-auto h-[56px] w-full max-w-[1536px] rounded-lg shadow-lg">
       <label
         htmlFor="search"
         className="absolute left-4 top-1/2 -translate-y-1/2"

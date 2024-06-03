@@ -3,7 +3,7 @@ import RegionDropdown from '../ui/RegionDropdown';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="flex flex-col gap-y-[30px]">
+    <main className="flex w-full flex-col gap-y-[30px]">
       <Search />
       <RegionDropdown />
       {children}

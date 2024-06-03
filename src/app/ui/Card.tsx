@@ -1,35 +1,31 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { AllCountry } from '../lib/data';
 
 const Card = ({
-  cca3,
+  alpha3Code,
   flag,
   name,
   population,
   region,
   capital,
-}: {
-  cca3: string;
-  flag: string;
-  name: string;
-  population: string;
-  region: string;
-  capital: string;
-}) => {
+}: AllCountry) => {
   return (
-    <Link href={`/${cca3}`} className="block">
-      <figure className="flex aspect-square w-full flex-col justify-between overflow-hidden rounded-lg bg-white shadow-lg dark:bg-dark-blue dark:text-white">
-        <div className="h-1/2">
+    <Link href={`/${alpha3Code}`} className="block">
+      <figure className="flex w-full flex-col justify-between overflow-hidden rounded-lg bg-white shadow-lg dark:bg-dark-blue dark:text-white">
+        <div>
           <Image
             src={flag}
             alt={name}
             width={1000}
             height={1000}
-            className="h-full object-cover"
+            className="aspect-video h-full object-cover"
           />
         </div>
-        <figcaption className="flex h-1/2 flex-col justify-between px-6 py-8">
-          <h2 className="text-2xl font-bold">{name}</h2>
+        <figcaption className="flex flex-col justify-between px-6 py-8">
+          <h2 className="line-clamp-1 overflow-hidden text-ellipsis text-2xl font-bold">
+            {name}
+          </h2>
           <ul className="text-lg">
             <li>
               <span className="font-bold">Population: </span>

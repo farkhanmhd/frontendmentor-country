@@ -11,14 +11,12 @@ interface HomeProps {
   };
 }
 
-export default async function Home({ searchParams }: HomeProps) {
-  const region = searchParams?.region || 'all';
+export default function Home({ searchParams }: HomeProps) {
+  const region = searchParams?.region || 'All';
   const page = searchParams?.page || 1;
   const search = searchParams?.search || '';
   let { countries, totalPages } =
-    region === 'all'
-      ? await getAllCountries()
-      : await getCountriesByRegion(region);
+    region === 'All' ? getAllCountries() : getCountriesByRegion(region);
 
   // if search
   if (searchParams?.search) {

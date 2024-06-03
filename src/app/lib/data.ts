@@ -1,99 +1,120 @@
+import { data } from '../data/data';
+
 const ITEM_PER_PAGE = 16;
 
-export const getAllCountries = async () => {
-  try {
-    const response = await fetch(
-      `${process.env.ENDPOINT}/v3.1/all?fields=cca3,name,population,region,capital,flags`,
-    );
-    const data = await response.json();
-    // Fix the any later
-    const countries = data.map((country: any) => {
-      const {
-        cca3,
-        name: { common },
-        population,
-        region,
-        capital: [city],
-        flags: { png },
-      } = country;
-      return {
-        cca3,
-        flag: png,
-        name: common,
-        population,
-        region,
-        capital: city,
-      };
-    });
+export interface AllCountry {
+  alpha3Code: string;
+  flag: string;
+  name: string;
+  population: string;
+  region: string;
+  capital: string;
+}
 
-    // fix the any later
-    const sortedCountries = countries.sort((a: any, b: any) => {
-      if (a.name < b.name) return -1;
-    });
-    const totalPages = Math.ceil(sortedCountries.length / ITEM_PER_PAGE);
-    return { countries: sortedCountries, totalPages };
-  } catch (error) {
-    throw new Error('Failed to fetch data');
-  }
-};
-
-export const getCountriesByRegion = async (region: string) => {
-  try {
-    const response = await fetch(
-      `${process.env.ENDPOINT}/v3.1/region/${region}?fields=cca3,name,population,region,capital,flags`,
-    );
-    const data = await response.json();
-    const countries = data.map((country: any) => {
-      const {
-        cca3,
-        name: { common },
-        population,
-        region,
-        capital: [city],
-        flags: { png },
-      } = country;
-      return {
-        cca3,
-        flag: png,
-        name: common,
-        population,
-        region,
-        capital: city,
-      };
-    });
-    // fix the any later
-    const sortedCountries = countries.sort((a: any, b: any) => {
-      if (a.name < b.name) return -1;
-    });
-    const totalPages = Math.ceil(sortedCountries.length / ITEM_PER_PAGE);
-    return { countries: sortedCountries, totalPages };
-  } catch (error) {
-    throw new Error('Failed to fetch data');
-  }
-};
-
-export const getCountryDetail = async (cca3: string) => {
-  try {
-    const response = await fetch(
-      `${process.env.ENDPOINT}/v3.1/alpha/${cca3}?fields=name,nativename,population,region,subregion,capital,flags,currencies,borders,languages,tld`,
-    );
-    const data = await response.json();
-    const result = {
-      flag: data.flags.png,
-      name: data.name.common,
-      nativeName:
-        data.name.nativeName[Object.keys(data.name.nativeName)[0]].common,
-      population: data.population,
-      region: data.region,
-      subregion: data.subregion,
-      capital: data.capital[0],
-      tld: data.tld[0],
-      currencies: data.currencies[Object.keys(data.currencies)[0]].name,
-      languages: Object.values(data.languages),
-      borders: data.borders,
+export const getAllCountries = () => {
+  const filteredCountries = data.map((country: any) => {
+    const {
+      alpha3Code,
+      name,
+      population,
+      region,
+      capital,
+      flags: { png },
+    } = country;
+    return {
+      alpha3Code,
+      flag: png,
+      name,
+      population,
+      region,
+      capital,
     };
-    return result;
-  } catch (error) {
-    throw new Error('Failed to fetch data');
-  }
+  });
+
+  const sortedCountries = filteredCountries.sort((a: any, b: any): any => {
+    if (a.name < b.name) return -1;
+  });
+
+  const totalPages = Math.ceil(sortedCountries.length / ITEM_PER_PAGE);
+
+  return { countries: sortedCountries, totalPages };
+};
+
+export const getCountriesByRegion = (region: string) => {
+  const filteredCountries = data.filter((country) => country.region === region);
+
+  const countries = filteredCountries.map((country: any) => {
+    const {
+      alpha3Code,
+      name,
+      population,
+      region,
+      capital,
+      flags: { png },
+    } = country;
+    return {
+      alpha3Code,
+      flag: png,
+      name,
+      population,
+      region,
+      capital,
+    };
+  });
+  const sortedCountries = countries.sort((a: any, b: any): any => {
+    if (a.name < b.name) return -1;
+  });
+
+  const totalPages = Math.ceil(sortedCountries.length / ITEM_PER_PAGE);
+
+  return { countries: sortedCountries, totalPages };
+};
+
+export interface CountryDetail {
+  flag: string;
+  name: string;
+  nativeName: string;
+  population: string;
+  region: string;
+  subregion: string;
+  capital: string;
+  topLevelDomain: string;
+  currencies: string;
+  languages: string;
+  borders: string[];
+}
+
+export const getCountryDetail = (alpha3Code: string) => {
+  const country: any = data.find(
+    (country) => country.alpha3Code === alpha3Code,
+  );
+  const {
+    flags: { png },
+    name,
+    nativeName,
+    population,
+    region,
+    subregion,
+    capital,
+    borders,
+    topLevelDomain,
+    currencies,
+    languages,
+  } = country;
+
+  const result: CountryDetail = {
+    flag: png,
+    name,
+    nativeName,
+    population,
+    region,
+    subregion,
+    capital,
+    topLevelDomain,
+    currencies: currencies.map((c: any) => c.name).join(''),
+    languages: languages.map((l: any) => l.name).join(', '),
+    borders,
+  };
+
+  return result;
 };

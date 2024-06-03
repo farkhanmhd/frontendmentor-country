@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${nunito.className} min-h-screen w-screen bg-very-light-gray px-[30px] pb-[50px] pt-[110px] text-black antialiased duration-200 dark:bg-very-dark-blue dark:text-white`}
+        className={`${nunito.className} min-h-screen w-full bg-very-light-gray px-[30px] pb-[50px] pt-[110px] text-black antialiased duration-200 dark:bg-very-dark-blue dark:text-white`}
       >
         <Header />
         <Suspense>{children}</Suspense>

@@ -1,5 +1,4 @@
 import Card from './Card';
-import { getAllCountries, getCountriesByRegion } from '../lib/data';
 
 const ITEM_PER_PAGE = 16;
 
@@ -17,7 +16,7 @@ async function CountryList({
 
   // fix the any later
   return (
-    <ul className="grid grid-cols-1 justify-items-center gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+    <ul className="mx-auto grid max-w-[1536px] grid-cols-1 justify-items-center gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {countriesPerPage.map((country: any, index: number) => (
         <li key={index}>
           <Card {...country} />

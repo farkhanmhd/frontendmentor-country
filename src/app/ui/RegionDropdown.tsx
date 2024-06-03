@@ -22,7 +22,7 @@ const RegionDropdown = () => {
   const handleRegionClick = (region: string) => {
     setSelectedRegion(region);
     const params = new URLSearchParams(searchParams);
-    params.set('region', region.toLowerCase());
+    params.set('region', capitalize(region.toLowerCase()));
     params.set('page', '1');
 
     let queryString = `region=${params.get('region')}&page=${params.get('page')}`;
@@ -30,14 +30,13 @@ const RegionDropdown = () => {
     if (params.get('search')) {
       queryString += `&search=${params.get('search')}`;
     }
-
     router.push(`${pathname}?${queryString}`);
     closeDropdown();
   };
 
   const ref = useDetectClickOutside({ onTriggered: closeDropdown });
   return (
-    <div className="relative flex justify-end font-semibold">
+    <div className="relative mx-auto flex w-full max-w-[1536px] justify-end font-semibold">
       <button
         id="dropdown-button"
         className="inline-flex justify-center rounded-md bg-white px-4 py-2 text-sm text-gray-700 shadow-lg dark:bg-dark-blue dark:text-white"
