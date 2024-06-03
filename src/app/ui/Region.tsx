@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import { capitalize } from '../utils/util';
+import Search from './Search';
 
-const RegionDropdown = () => {
+const Region = () => {
   const [isOpen, setIsOpen] = useState(false);
   const regions = ['All', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
   const pathname = usePathname();
@@ -36,10 +37,11 @@ const RegionDropdown = () => {
 
   const ref = useDetectClickOutside({ onTriggered: closeDropdown });
   return (
-    <div className="relative mx-auto flex w-full max-w-[1536px] justify-end font-semibold">
+    <div className="relative mx-auto flex w-full max-w-[1536px] flex-col justify-between gap-y-4 font-semibold md:flex-row">
+      <Search />
       <button
         id="dropdown-button"
-        className="inline-flex justify-center rounded-md bg-white px-4 py-2 text-sm text-gray-700 shadow-lg dark:bg-dark-blue dark:text-white"
+        className="inline-flex items-center justify-center rounded-md bg-white px-4 py-2 text-sm text-gray-700 shadow-lg dark:bg-dark-blue dark:text-white"
         onClick={() => setIsOpen(!isOpen)}
       >
         {`Filter by Region : ${selectedRegion}`}
@@ -60,7 +62,7 @@ const RegionDropdown = () => {
       {isOpen && (
         <div
           id="dropdown-menu"
-          className="absolute right-0 top-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-dark-blue"
+          className="absolute right-0 top-28 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 md:top-14 dark:bg-dark-blue"
           ref={ref}
         >
           <div
@@ -71,7 +73,7 @@ const RegionDropdown = () => {
           >
             {regions.map((region, index) => (
               <button
-                className="block w-full rounded-md px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 dark:text-white dark:hover:bg-very-dark-blue"
+                className="block w-full rounded-md px-4 py-4 text-left text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 dark:text-white dark:hover:bg-very-dark-blue"
                 role="menuitem"
                 key={index}
                 onClick={() => handleRegionClick(region)}
@@ -86,4 +88,4 @@ const RegionDropdown = () => {
   );
 };
 
-export default RegionDropdown;
+export default Region;

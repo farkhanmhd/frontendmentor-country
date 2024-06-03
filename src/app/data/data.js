@@ -7216,7 +7216,7 @@ export const data = [
     independent: true,
   },
   {
-    name: 'Iran (Islamic Republic of)',
+    name: 'Iran (Islamic Republic of Iran)',
     topLevelDomain: ['.ir'],
     alpha2Code: 'IR',
     alpha3Code: 'IRN',

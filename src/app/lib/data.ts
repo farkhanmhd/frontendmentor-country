@@ -111,10 +111,17 @@ export const getCountryDetail = (alpha3Code: string) => {
     subregion,
     capital,
     topLevelDomain,
-    currencies: currencies.map((c: any) => c.name).join(''),
+    currencies: currencies?.map((c: any) => c.name).join(''),
     languages: languages.map((l: any) => l.name).join(', '),
     borders,
   };
 
   return result;
+};
+
+export const getCountryName = (alpha3Code: string) => {
+  const country: any = data.find(
+    (country) => country.alpha3Code === alpha3Code,
+  );
+  return country.name;
 };

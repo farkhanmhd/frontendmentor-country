@@ -1,11 +1,9 @@
-import Search from '../ui/Search';
-import RegionDropdown from '../ui/RegionDropdown';
+import Region from '../ui/Region';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="flex w-full flex-col gap-y-[30px]">
-      <Search />
-      <RegionDropdown />
+      <Region />
       {children}
     </main>
   );
